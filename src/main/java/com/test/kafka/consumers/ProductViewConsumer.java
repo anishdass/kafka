@@ -11,10 +11,7 @@ import org.springframework.stereotype.Service;
 public class ProductViewConsumer {
     private final ProductViewRedisService redisService;
 
-    @KafkaListener(
-            topics = "product-view-events",
-            groupId = "product-group"
-    )
+    @KafkaListener(topics = "product-view-events", groupId = "product-group")
     public void consume(ProductViewEvent event){
         System.out.println("Consumed: " + event.getProductName());
         redisService.incrementView(event.getProductId());
